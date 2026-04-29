@@ -1,0 +1,183 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color: #000000;
+    --panel-color: #000000;
+    --text-color: #ffffff;
+    --accent-color: #ffffff;
+    --accent-hover-color: #dddddd;
+    --input-bg-color: #222222;
+    --border-color: #333333;
+    --hover-bg-color: #222222;
+    --danger-color: #000000;
+    --danger-bg-color: #ffffff;
+    --danger-hover-bg: #dddddd;
+    --highlight-color: #ffffff;
+    --ai-btn-bg: #ffd700;
+    --ai-btn-hover-bg: #f0e68c;
+    --highlight-green: #4aed88;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.inputBox {
+    padding: 12px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+    background: var(--input-bg-color);
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.btn {
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    background: transparent;
+    color: var(--text-color);
+}
+
+.joinBtn {
+    background: var(--accent-color);
+    color: var(--bg-color);
+    border-color: var(--accent-color);
+}
+
+.joinBtn:hover {
+    background: var(--accent-hover-color);
+    border-color: var(--accent-hover-color);
+}
+
+.auth-page-wrapper,
+.dashboard-page-wrapper {
+    padding: 2rem 4rem;
+}
+
+.auth-page-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.auth-form-wrapper {
+    background: var(--panel-color);
+    padding: 2rem;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 90%;
+    border: 1px solid var(--border-color);
+}
+
+.auth-form-logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.mainLabel {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.auth-input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-form-footer {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.auth-form-footer a {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+    margin: 0;
+}
+
+.dashboard-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.join-doc-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.join-doc-group .inputBox {
+    margin-bottom: 0;
+    min-width: 250px;
+}
+
+.join-doc-group .btn {
+    background-color: var(--input-bg-color);
+}
+
+.join-doc-group .btn:hover {
+    background-color: var(--border-color);
+}
+
+.modal-overlay {
+  position: fixed; /* Sits on top of the page content */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black overlay */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Ensures it's on top of everything else */
+  animation: fadeIn 0.2s ease-out; /* A nice fade-in effect */
+}
+
+.modal-content {
+  background: var(--panel-color);
+  padding: 2rem;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  position: relative;
+  border: 1px solid var(--border-color);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 2rem;
+  cursor: pointer;
+}
