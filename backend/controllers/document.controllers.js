@@ -1,4 +1,4 @@
-import { document } from "../models/document.models";
+import { document } from "../models/document.models.js";
 
 export const createDocument = async (req, res ) => {
     try {
