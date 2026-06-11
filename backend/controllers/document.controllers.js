@@ -4,13 +4,13 @@ export const createDocument = async (req, res ) => {
     try {
         const {title} = req.body;
 
-        const document = await Document.create({
+        const doc = await document.create({
             title: title || "Untitled Document", 
-            owner: req.user._id,
+            owner: req.userId,
             collaborators: [] 
         });
 
-        res.status(201).json(document);
+        res.status(201).json(doc);
     } 
     catch (error) {
         res.status(500).json({message: "Server error"});
@@ -21,8 +21,8 @@ export const getUserDocuments = async (req, res) => {
     try {
         const documents = await document.find({
             $or: [
-                {owner: req.user._id}, 
-                {collaborators: req.user._id}
+                {owner: req.userId}, 
+                {collaborators: req.userId}
             ]
         }).sort({updatedAt: -1});
 
@@ -36,7 +36,7 @@ export const getUserDocuments = async (req, res) => {
 export const addCollaborator = async (req, res) => {
     try {
         const {documentId} = req.params;
-        const collaboratorId = req.user._id;
+        const collaboratorId = req.userId;
 
         const doc = await document.findById(documentId);
         if(!doc){

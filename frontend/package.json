@@ -10,10 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
+    "axios": "^1.17.0",
     "lucide-react": "^1.11.0",
     "react": "^19.2.5",
+    "react-avatar": "^5.0.4",
     "react-dom": "^19.2.5",
     "react-hot-toast": "^2.6.0",
+    "react-markdown": "^10.1.0",
     "react-router-dom": "^7.14.2",
     "socket.io-client": "^4.8.3"
   },

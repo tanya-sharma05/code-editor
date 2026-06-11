@@ -1,5 +1,8 @@
 import { GoogleGenAI } from "@google/genai";
 
+import dotenv from "dotenv";
+dotenv.config();
+
 const genAI = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY
 });
@@ -32,7 +35,7 @@ async function explainCode(req, res) {
         `;
 
         const response = await genAI.models.generateContent({
-            model: "gemini-3.5-flash",
+            model: "gemini-2.5-flash",
             contents: [{parts: [{text: prompt}]}],
         });
 

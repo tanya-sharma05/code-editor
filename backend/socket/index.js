@@ -4,7 +4,7 @@ import { document } from "../models/document.models.js";
 const userSocketMap = {};
 const documentStates = new Map();
 
-function getClientsInRoom(documentId) {
+function getClientsInRoom(io, documentId) {
     const socketIds = io.sockets.adapter.rooms.get(documentId) || new Set();
     return Array.from(socketIds).map(socketId => ({
         socketId,
@@ -36,7 +36,7 @@ export const initSocket = (io) => {
             console.log(`User ${username} (${socket.id}) joined room ${documentId}`);
 
             // Broadcast updated client list to everyone in the room
-            const clients = getClientsInRoom(documentId);
+            const clients = getClientsInRoom(io,documentId);
             io.to(documentId).emit("update-client-list", clients);
 
             // Send current code only to the newly joined user
@@ -53,7 +53,7 @@ export const initSocket = (io) => {
             const rooms = Array.from(socket.rooms);
             for(const documentId of rooms) {
                 if(documentId !== socket.id) {
-                    const clients = getClientsInRoom(documentId).filter(
+                    const clients = getClientsInRoom(io,documentId).filter(
                         (c) => c.socketId !== socket.id
                     );
 
@@ -62,7 +62,7 @@ export const initSocket = (io) => {
                         if(documentStates.has(documentId)) {
                             try {
                                 const finalContent = documentStates.get(documentId);
-                                await Document.findByIdAndUpdate(documentId, {content: finalContent});
+                                await document.findByIdAndUpdate(documentId, {content: finalContent});
                                 documentStates.delete(documentId);
                                 console.log(`Document ${documentId} saved to DB.`);
                             } 

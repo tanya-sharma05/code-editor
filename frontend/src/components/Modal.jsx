@@ -1,15 +1,20 @@
-import React from 'react'
+import React from 'react';
 
-const Modal = () => {
-  return (
-    <div className="modal-overlay">
-        <div className="modal-content">
-            <button className="modal-close-btn">
-                &times;
-            </button>
+const Modal = ({ isOpen, onClose, children }) => {
+    if(!isOpen) {
+        return null;
+    }
+
+    return (
+        <div className="modal-overlay" onClick={onClose}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                <button className="modal-close-btn" onClick={onClose}>
+                    &times;
+                </button>
+                {children}
+            </div>
         </div>
-    </div>
-  )
-}
+    );
+};
 
-export default Modal
+export default Modal;
