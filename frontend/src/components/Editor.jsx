@@ -63,6 +63,8 @@ const Editor = ({
                 .getValueInRange(selection);
         };
 
+        window.getEditorValue = () => editor.getValue() ?? '';
+
         if(socketRef.current){
             socketRef.current.on(
                 "receive-changes",
