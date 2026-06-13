@@ -9,7 +9,7 @@ const documentSchema = new mongoose.Schema(
         }, 
         content: {
             type: String,
-            default: "// Start coding here!",
+            default: "",
         },
         owner: {
             type: mongoose.Schema.Types.ObjectId,

@@ -9,7 +9,7 @@ import documentRouter from "./routes/document.routes.js";
 import aiRouter from "./routes/ai.routes.js";
 import {createServer} from "http";
 import { Server } from "socket.io";
-import { initSocket } from "./socket/indesx.js";
+import { initSocket } from "./socket/index.js";
 
 await connectDB();
 

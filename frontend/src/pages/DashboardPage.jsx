@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import {Link} from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import {Link, useNavigate} from "react-router-dom";
 import Modal from "../components/Modal";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 function DashboardPage() {
     const [userInfo, setUserInfo] = useState(null);
@@ -8,13 +10,77 @@ function DashboardPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [documents, setDocuments] = useState([]);
     const [newTitle, setNewTitle] = useState('');
+    const navigate = useNavigate();
+
+    // Runs automatically when this page loads to check authentication and fetch user's documents
+    useEffect(() => {
+        // Get saved user information from browser localStorage
+        const storedUserInfo = localStorage.getItem('userInfo');
+        if(storedUserInfo) {
+            // localStorage stores data as string
+            // Convert JSON string back into JavaScript object
+            const parsedInfo = JSON.parse(storedUserInfo);
+            setUserInfo(parsedInfo);
+            fetchDocuments(parsedInfo.token);
+        }
+        else {
+            toast.error("You must be logged in");
+            navigate("/login");
+        }
+    }, [navigate]);
+
+    // Function to get all documents from backend database
+    const fetchDocuments = async(token) => {
+        try {
+            const {data} = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/docs`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+            // Store received documents into React state
+            setDocuments(data);
+        }
+        catch(error) {
+            toast.error("Could not fetch documents");    
+        }
+    };
 
     const handleJoinDocument = async () => {
+        if(!joinId) {
+            return toast.error("Please enter a Document ID");
+        }
+        try {
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/docs/${joinId}/collaborators`,
+                {}, 
+                {headers: {Authorization: `Bearer ${userInfo.token}`}}
+            );
+            toast.success("Joining document...");
+            navigate(`/editor/${joinId}`);
+        } 
+        catch(error) {
+            toast.error(error.response?.data?.message || "Failed to join document");
+        }
     };
 
     const handleCreateDocument = async () => {
+        if(!newTitle) {
+            return toast.error("Title is required");
+        }
+        try {
+            const {data: newDocument} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/docs`,
+                                                            {title: newTitle},
+                                                            {headers: {Authorization: `Bearer ${userInfo.token}`}}
+            );
+            toast.success("New document created!");
+            setIsModalOpen(false);
+            setNewTitle('');
+            navigate(`/editor/${newDocument._id}`);
+        } 
+        catch (error) {
+            toast.error("Could not create a new document");
+        }
     };
-
 
     return (
         <>
