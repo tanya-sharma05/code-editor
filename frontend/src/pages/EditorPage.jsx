@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Logo from "../components/Logo";
 import {useNavigate, useParams} from "react-router-dom";
 import Client from "../components/Client";
@@ -42,25 +42,8 @@ function EditorPage() {
     const codeRef = useRef(null);
 
     const [isRunning, setIsRunning] = useState(false);
-    // const [output,       setOutput]       = useState(null);   
-    // const [isOutputOpen, setIsOutputOpen] = useState(false);
-
-     // keep terminal visible
-    const [isOutputOpen, setIsOutputOpen] = useState(true);
-     // fake program output
-    const [output, setOutput] = useState(
-`
-Hello Tanya 👋
-
-Program started...
-
-Output:
-10
-
-Execution completed successfully.
-`
-    );
-
+    const [output, setOutput] = useState(null);   
+    const [isOutputOpen, setIsOutputOpen] = useState(false);
 
     const handleExplainCode = async () => {
     };

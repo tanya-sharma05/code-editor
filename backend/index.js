@@ -7,12 +7,22 @@ import cors from "cors";
 import userRouter from "./routes/user.routes.js";
 import documentRouter from "./routes/document.routes.js";
 import aiRouter from "./routes/ai.routes.js";
+import {createServer} from "http";
+import { Server } from "socket.io";
+import { initSocket } from "./socket/indesx.js";
 
 await connectDB();
 
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+})
 
 app.use(cors());
 app.use(express.json());
@@ -29,6 +39,8 @@ app.use("/api/auth", userRouter);
 app.use("/api/docs", documentRouter);
 app.use("/api/ai", aiRouter); 
 
-app.listen(PORT, () => {
+initSocket(io);
+
+httpServer.listen(PORT, () => {
     console.log(`Server is running on PORT ${PORT}`);
 });
