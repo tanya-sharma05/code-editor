@@ -27,7 +27,6 @@ function Logo() {
             strokeLinecap="round"
             strokeLinejoin="round" 
         />
-
         <path
             d="M16 8L20 12L16 16"
             stroke="#7C3AED"
@@ -35,7 +34,6 @@ function Logo() {
             strokeLinecap="round"
             strokeLinejoin="round"
         />
-
         <path
             d="M13 4L11 20"
             stroke="#F8F8F2"
