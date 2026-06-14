@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
-const ExplanationPanel = ({isLoading, response, onClose}) => {
+const ExplainationPanel = ({isLoading, response, onClose}) => {
     return (
         <aside className="explanation-panel">
             <div className="panel-header">
@@ -49,4 +49,4 @@ const ExplanationPanel = ({isLoading, response, onClose}) => {
     );
 };
 
-export default ExplanationPanel;
+export default ExplainationPanel;
