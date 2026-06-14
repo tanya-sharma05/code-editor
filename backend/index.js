@@ -10,6 +10,7 @@ import aiRouter from "./routes/ai.routes.js";
 import {createServer} from "http";
 import { Server } from "socket.io";
 import { initSocket } from "./socket/index.js";
+import codeRouter from "./routes/code.routes.js";
 
 await connectDB();
 
@@ -38,6 +39,7 @@ app.get("/api", (req, res) => {
 app.use("/api/auth", userRouter);
 app.use("/api/docs", documentRouter);
 app.use("/api/ai", aiRouter); 
+app.use("/api/code", codeRouter);
 
 initSocket(io);
 

@@ -39,6 +39,10 @@ const Editor = ({socketRef, documentId, onCodeChange, language = "javascript"
                 .getValueInRange(selection);
         };
 
+        // Create a global function named getEditorValue. 
+        // Whenever somebody calls it, return Monaco's latest code. If Monaco gives nothing, return empty string
+        window.getEditorValue = () => editor.getValue() ?? '';
+
         if(socketRef.current){
             // Listen for code updates coming from OTHER users
             socketRef.current.on("receive-changes",

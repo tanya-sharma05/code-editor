@@ -23,12 +23,8 @@ const LANGUAGES = [
     {value: 'php', label: 'PHP' },
     {value: 'swift', label: 'Swift' },
     {value: 'kotlin', label: 'Kotlin' },
-    {value: 'html', label: 'HTML' },
-    {value: 'css', label: 'CSS' },
-    {value: 'json', label: 'JSON' },
-    {value: 'sql', label: 'SQL' },
     {value: 'bash', label: 'Bash / Shell' },
-    {value: 'markdown', label: 'Markdown' },
+    {value: 'sql', label: 'SQL' }
 ];
 
 function EditorPage() {
@@ -150,6 +146,33 @@ function EditorPage() {
     };
 
     const handleRunCode = async () => {
+        // Try to get code value from codeRef first, then fall back to reading directly from Monaco
+        const code = codeRef.current || window.getEditorValue?.() || '';
+    
+        if(!code.trim()) {
+            toast.error("Editor is empty. Nothing to run!");
+            return;
+        }
+    
+        setIsRunning(true);
+        setOutput(null);
+        setIsOutputOpen(true);
+    
+        try {
+            const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/code/run`,
+                                            {code, language},
+                                            {headers: {Authorization: `Bearer ${userInfo.token}`}}
+            );
+            setOutput(data);
+        } 
+        catch(error) {
+            const msg = error?.response?.data?.message || "Code execution failed";
+            toast.error(msg);
+            setOutput({message: msg, status: {description: "Error"}});
+        } 
+        finally {
+            setIsRunning(false);
+        }
     };
 
     return (
