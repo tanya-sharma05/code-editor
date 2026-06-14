@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Logo from "../components/Logo";
 import {useNavigate, useParams} from "react-router-dom";
 import Client from "../components/Client";
-import ExplanationPanel from '../components/ExplainationPanel';
+import ExplainationPanel from '../components/ExplainationPanel';
 import Editor from '../components/Editor';
 import OutputTerminal from '../components/OutputTerminal';
 import {initSocket} from '../socket';
@@ -178,7 +178,7 @@ function EditorPage() {
     return (
         <div className={`editor-layout ${isPanelOpen ? 'ai-panel-active' : ''}`}>
             {isPanelOpen ? (
-                <ExplanationPanel
+                <ExplainationPanel
                     isLoading={isAiLoading}
                     response={aiResponse}
                     onClose={() => setIsPanelOpen(false)}
